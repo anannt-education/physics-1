@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLesson, LESSONS } from "@/content/lessons";
 import { pageMetadata } from "@/lib/site";
+import { isPublicLesson, PUBLIC_LESSONS } from "@/lib/mount";
 
 export function generateStaticParams() {
   return LESSONS.map((lesson) => ({ id: lesson.id }));
@@ -21,10 +22,12 @@ export async function generateMetadata({
       index: false,
     });
   }
+  const publicLesson = PUBLIC_LESSONS.find((item) => item.id === lesson.id);
   return pageMetadata({
     title: lesson.title,
-    description: lesson.outcome,
+    description: publicLesson?.description ?? lesson.outcome,
     path: `/lesson/${id}`,
+    index: isPublicLesson(lesson.id),
   });
 }
 

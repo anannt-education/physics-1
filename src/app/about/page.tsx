@@ -27,7 +27,7 @@ const METHOD = [
   },
   {
     title: "Paper writing for a hybrid exam",
-    body: "May 2027 is hybrid: prompts on screen, free response on paper. This course trains that habit. We do not claim Bluebook equivalence.",
+    body: "May 2027 is hybrid: prompts on screen, free response on paper. This course trains that habit. We do not claim to be the official exam application.",
   },
   {
     title: "Scored-item authoring gates",

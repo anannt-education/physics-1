@@ -40,13 +40,12 @@ export default function LegalPage() {
 
       <section aria-labelledby="affiliation" className="space-y-3">
         <h2 id="affiliation" className="font-heading text-2xl">
-          College Board and Bluebook
+          College Board trademarks
         </h2>
         <p>
-          AP®, Advanced Placement®, and Bluebook® are trademarks of the College Board. Anannt
-          Education is not affiliated with, endorsed by, or a partner of the College Board. This
-          platform is not the official exam application and does not claim interface equivalence with
-          Bluebook.
+          AP® is a trademark registered by the College Board, which is not affiliated with, and does
+          not endorse, this website. This studio is a self-study supplement. It does not predict an
+          official AP score.
         </p>
         <p className="text-muted-foreground">
           Official unit names, MCQ weighting ranges, and the May 2027 section timing we cite are

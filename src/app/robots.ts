@@ -1,16 +1,17 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { robotsAllow, robotsDisallow } from "@/lib/mount";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/api/", "/admin", "/review/play"],
+        allow: robotsAllow(),
+        disallow: robotsDisallow(),
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    host: "https://study.anannt.ae",
   };
 }

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { SITE_URL as MOUNT_URL } from "@/lib/mount";
 
-/** Public origin for canonical URLs, OG, sitemap, and JSON-LD. Override in production. */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://anannt.education").replace(
+/** Public origin for canonical URLs, OG, sitemap, and JSON-LD. Mounted on study.anannt.ae. */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? MOUNT_URL).replace(
   /\/$/,
   ""
 );
@@ -10,9 +11,9 @@ export const SITE_NAME = "Anannt Education";
 export const SITE_PRODUCT = "AP Physics 1";
 export const SITE_EXAM = "May 2027";
 
-export const DEFAULT_TITLE = "AP Physics 1 prep for the May 2027 exam";
+export const DEFAULT_TITLE = "AP Physics 1 — two Unit 1 motion lessons";
 export const DEFAULT_DESCRIPTION =
-  "Anannt Education coaches AP Physics 1 for the May 2027 exam: diagnose the stuck idea, name why this task is next, repair graph reading, and keep scored items behind a second-person publish gate. A self-study supplement — not a predicted AP score and not College Board.";
+  "Two Unit 1 motion lessons on graph-reading are open with no account. Units 2–8 are unpublished. Anannt Education does not predict an official AP score.";
 
 export function canonicalPath(path: string) {
   if (!path || path === "/") return "/";
@@ -28,7 +29,7 @@ export function pageMetadata({
   title,
   description,
   path,
-  index = true,
+  index = false,
 }: {
   title: string;
   description: string;
@@ -39,7 +40,7 @@ export function pageMetadata({
   return {
     title,
     description,
-    alternates: { canonical: canonicalPath(path) },
+    alternates: { canonical: url },
     robots: index
       ? { index: true, follow: true }
       : { index: false, follow: false },
@@ -64,12 +65,13 @@ export const ROUTES = {
     path: "/",
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
+    index: true,
   },
   about: {
     path: "/about",
-    title: "About Anannt Education and this AP Physics 1 course",
+    title: "About Anannt Education and this AP Physics 1 studio",
     description:
-      "How Anannt Education coaches AP Physics 1: diagnosis before lecture, why-this-next planning, graph-reading repair, handwritten FRQ for the hybrid May 2027 exam, and scored-item authoring gates. Not affiliated with the College Board.",
+      "How Anannt Education coaches AP Physics 1: two public Unit 1 graph-reading lessons. Units 2–8 are unpublished. This desk does not predict an AP score.",
   },
   legal: {
     path: "/legal",
@@ -97,9 +99,9 @@ export const ROUTES = {
   },
   diagnostic: {
     path: "/diagnostic",
-    title: "Foundation diagnostic — graph reading and kinematics placement",
+    title: "Foundation diagnostic — graph reading start",
     description:
-      "A resumable 10-item foundation diagnostic. “I have not learned this yet” is not scored as a wrong model. Placement is provisional, never permanent mastery.",
+      "Start a foundation graph-reading check for AP Physics 1 with no account. After you submit, we ask how Burjuman can help. We do not predict an AP score.",
   },
   review: {
     path: "/review",
@@ -141,13 +143,15 @@ export const ROUTES = {
     path: "/lesson/lesson-motion-graphs",
     title: "Reading motion from position-time graphs",
     description:
-      "Unit 1 lesson: determine speeding up, slowing down, or constant velocity from an x-t graph using slope, not height.",
+      "Read speeding up or slowing down from an x-t graph using slope, not height. Free Unit 1 AP Physics 1 lesson from Anannt in Dubai. No account needed today.",
+    index: true,
   },
   lessonTurning: {
     path: "/lesson/lesson-zero-v-a",
     title: "Zero velocity with nonzero acceleration",
     description:
-      "Unit 1 lesson: explain why an object can be instantaneously at rest while its velocity is still changing — the turning-point idea on the May 2027 exam.",
+      "Explain why velocity can be zero while acceleration is not. Free Unit 1 AP Physics 1 turning-point lesson from Anannt Education, Dubai. No account needed.",
+    index: true,
   },
   frq: {
     path: "/frq/frq-flattening-graph",
@@ -175,8 +179,16 @@ export function organizationJsonLd() {
     "@type": "EducationalOrganization",
     name: SITE_NAME,
     url: SITE_URL,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Office 105, Bank Street Building, Burjuman Metro Exit 2",
+      addressLocality: "Dubai",
+      addressCountry: "AE",
+    },
+    telephone: "+971585853551",
+    email: "wecare@anannt.ae",
     description:
-      "Anannt Education designs exam-aware physics coaching: diagnosis, graph-reading repair, and scored items that require a second-person publish gate.",
+      "Anannt Education designs exam-aware physics coaching: diagnosis, graph-reading repair, and two public Unit 1 lessons. Units 2–8 are unpublished.",
     knowsAbout: ["AP Physics 1", "Kinematics", "Motion graphs", "Physics education"],
   };
 }
@@ -199,7 +211,7 @@ export function courseJsonLd() {
     "@type": "Course",
     name: "AP Physics 1 exam preparation",
     description:
-      "Guided AP Physics 1 preparation for the May 2027 exam. The current release is a Unit 1 kinematics slice: foundation diagnostic, motion-graph lessons, practice, misconception repair, and a handwritten free-response task.",
+      "Unit 1 kinematics slice: two public graph-reading lessons. Units 2–8 are unpublished. A self-study supplement — Anannt Education does not predict an official AP score.",
     url: SITE_URL,
     provider: {
       "@type": "EducationalOrganization",
@@ -254,21 +266,4 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   };
 }
 
-export const SITEMAP_PATHS = [
-  ROUTES.home.path,
-  ROUTES.about.path,
-  ROUTES.legal.path,
-  ROUTES.course.path,
-  ROUTES.practice.path,
-  ROUTES.onboarding.path,
-  ROUTES.diagnostic.path,
-  ROUTES.review.path,
-  ROUTES.progress.path,
-  ROUTES.results.path,
-  ROUTES.mocks.path,
-  ROUTES.lessonMotion.path,
-  ROUTES.lessonTurning.path,
-  ROUTES.frq.path,
-  ROUTES.repairSlope.path,
-  ROUTES.repairTurning.path,
-] as const;
+export const SITEMAP_PATHS = [ROUTES.home.path, ROUTES.lessonMotion.path, ROUTES.lessonTurning.path] as const;
