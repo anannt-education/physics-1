@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
+import { SITE_URL as MOUNT_SITE_URL, absUrl, PUBLIC_SEO } from "@/lib/mount";
 
-/** Public origin for canonical URLs, OG, sitemap, and JSON-LD. Override in production. */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://anannt.education").replace(
-  /\/$/,
-  ""
-);
+/** Public origin for canonical URLs, OG, sitemap, and JSON-LD. */
+export const SITE_URL = MOUNT_SITE_URL;
 
 export const SITE_NAME = "Anannt Education";
 export const SITE_PRODUCT = "AP Physics 1";
 export const SITE_EXAM = "May 2027";
 
-export const DEFAULT_TITLE = "AP Physics 1 prep for the May 2027 exam";
+export const DEFAULT_TITLE = "Physics 1 · Unit 1 motion graphs";
 export const DEFAULT_DESCRIPTION =
-  "Anannt Education coaches AP Physics 1 for the May 2027 exam: diagnose the stuck idea, name why this task is next, repair graph reading, and keep scored items behind a second-person publish gate. A self-study supplement — not a predicted AP score and not College Board.";
+  "Two Unit 1 motion and graph-reading lessons for AP Physics 1. Later units are unpublished. A self-study supplement — Anannt does not predict an AP score.";
 
 export function canonicalPath(path: string) {
   if (!path || path === "/") return "/";
@@ -20,8 +18,7 @@ export function canonicalPath(path: string) {
 }
 
 export function absoluteUrl(path: string) {
-  const p = canonicalPath(path);
-  return p === "/" ? SITE_URL : `${SITE_URL}${p}`;
+  return absUrl(path);
 }
 
 export function pageMetadata({
@@ -39,7 +36,7 @@ export function pageMetadata({
   return {
     title,
     description,
-    alternates: { canonical: canonicalPath(path) },
+    alternates: { canonical: url },
     robots: index
       ? { index: true, follow: true }
       : { index: false, follow: false },
@@ -62,14 +59,13 @@ export function pageMetadata({
 export const ROUTES = {
   home: {
     path: "/",
-    title: DEFAULT_TITLE,
-    description: DEFAULT_DESCRIPTION,
+    title: PUBLIC_SEO.home.title,
+    description: PUBLIC_SEO.home.description,
   },
   about: {
     path: "/about",
-    title: "About Anannt Education and this AP Physics 1 course",
-    description:
-      "How Anannt Education coaches AP Physics 1: diagnosis before lecture, why-this-next planning, graph-reading repair, handwritten FRQ for the hybrid May 2027 exam, and scored-item authoring gates. Not affiliated with the College Board.",
+    title: PUBLIC_SEO.about.title,
+    description: PUBLIC_SEO.about.description,
   },
   legal: {
     path: "/legal",
@@ -97,9 +93,8 @@ export const ROUTES = {
   },
   diagnostic: {
     path: "/diagnostic",
-    title: "Foundation diagnostic — graph reading and kinematics placement",
-    description:
-      "A resumable 10-item foundation diagnostic. “I have not learned this yet” is not scored as a wrong model. Placement is provisional, never permanent mastery.",
+    title: PUBLIC_SEO.diagnostic.title,
+    description: PUBLIC_SEO.diagnostic.description,
   },
   review: {
     path: "/review",
@@ -139,15 +134,13 @@ export const ROUTES = {
   },
   lessonMotion: {
     path: "/lesson/lesson-motion-graphs",
-    title: "Reading motion from position-time graphs",
-    description:
-      "Unit 1 lesson: determine speeding up, slowing down, or constant velocity from an x-t graph using slope, not height.",
+    title: PUBLIC_SEO.lesson1.title,
+    description: PUBLIC_SEO.lesson1.description,
   },
   lessonTurning: {
     path: "/lesson/lesson-zero-v-a",
-    title: "Zero velocity with nonzero acceleration",
-    description:
-      "Unit 1 lesson: explain why an object can be instantaneously at rest while its velocity is still changing — the turning-point idea on the May 2027 exam.",
+    title: PUBLIC_SEO.lesson2.title,
+    description: PUBLIC_SEO.lesson2.description,
   },
   frq: {
     path: "/frq/frq-flattening-graph",
@@ -174,7 +167,7 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     name: SITE_NAME,
-    url: SITE_URL,
+    url: absUrl("/"),
     description:
       "Anannt Education designs exam-aware physics coaching: diagnosis, graph-reading repair, and scored items that require a second-person publish gate.",
     knowsAbout: ["AP Physics 1", "Kinematics", "Motion graphs", "Physics education"],
@@ -186,7 +179,7 @@ export function websiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: `${SITE_NAME} ${SITE_PRODUCT}`,
-    url: SITE_URL,
+    url: absUrl("/"),
     description: DEFAULT_DESCRIPTION,
     publisher: { "@type": "EducationalOrganization", name: SITE_NAME, url: SITE_URL },
     inLanguage: "en-US",
@@ -200,11 +193,11 @@ export function courseJsonLd() {
     name: "AP Physics 1 exam preparation",
     description:
       "Guided AP Physics 1 preparation for the May 2027 exam. The current release is a Unit 1 kinematics slice: foundation diagnostic, motion-graph lessons, practice, misconception repair, and a handwritten free-response task.",
-    url: SITE_URL,
+    url: absUrl("/"),
     provider: {
       "@type": "EducationalOrganization",
       name: SITE_NAME,
-      url: SITE_URL,
+      url: absUrl("/"),
     },
     educationalLevel: "High school",
     teaches: [
@@ -256,19 +249,6 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
 
 export const SITEMAP_PATHS = [
   ROUTES.home.path,
-  ROUTES.about.path,
-  ROUTES.legal.path,
-  ROUTES.course.path,
-  ROUTES.practice.path,
-  ROUTES.onboarding.path,
-  ROUTES.diagnostic.path,
-  ROUTES.review.path,
-  ROUTES.progress.path,
-  ROUTES.results.path,
-  ROUTES.mocks.path,
   ROUTES.lessonMotion.path,
   ROUTES.lessonTurning.path,
-  ROUTES.frq.path,
-  ROUTES.repairSlope.path,
-  ROUTES.repairTurning.path,
 ] as const;

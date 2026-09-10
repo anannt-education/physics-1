@@ -11,6 +11,7 @@ import { MENTOR } from "@/content/mentor";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import type { PublicationState } from "@/lib/types";
+import { appPath } from "@/lib/mount";
 
 interface AdminItem {
   id: string;
@@ -36,7 +37,7 @@ export default function AdminPage() {
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/items")
+    fetch(appPath("/api/admin/items"))
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) throw new Error(data.error ?? "Could not load the CMS queue.");

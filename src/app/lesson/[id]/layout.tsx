@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLesson, LESSONS } from "@/content/lessons";
 import { pageMetadata } from "@/lib/site";
+import { PUBLIC_SEO } from "@/lib/mount";
 
 export function generateStaticParams() {
   return LESSONS.map((lesson) => ({ id: lesson.id }));
@@ -21,10 +22,24 @@ export async function generateMetadata({
       index: false,
     });
   }
+  const publicCopy =
+    id === "lesson-motion-graphs"
+      ? PUBLIC_SEO.lesson1
+      : id === "lesson-zero-v-a"
+        ? PUBLIC_SEO.lesson2
+        : null;
+  if (publicCopy) {
+    return pageMetadata({
+      title: publicCopy.title,
+      description: publicCopy.description,
+      path: publicCopy.path,
+    });
+  }
   return pageMetadata({
     title: lesson.title,
     description: lesson.outcome,
     path: `/lesson/${id}`,
+    index: false,
   });
 }
 

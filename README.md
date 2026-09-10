@@ -11,7 +11,7 @@ Repository: https://github.com/anannt-education/physics-1
 - Home with one Continue action, today’s plan, review due, next milestone, and weekly effort
 - Onboarding (exam year, time, math confidence, accessibility)
 - Foundation diagnostic that resumes after refresh
-- Course map for all eight official units (Units 2–8 marked as later)
+- Course map for all eight official units (Units 2–8 labelled **unpublished**)
 - Lesson workspace: outcome, prerequisite check, prediction, explanation with diagrams, worked example, partial example, independent check, representation task, exit check, retrieval schedule
 - Practice studio (26 reviewed items)
 - Graph-slope repair path and turning-point repair
@@ -30,9 +30,9 @@ npm install
 npm run dev
 ```
 
-Open [http://127.0.0.1:43123](http://127.0.0.1:43123). The dev script binds `0.0.0.0:43123`. For a production preview, run `npm run build` and then `npx next start --hostname 0.0.0.0 --port 43123`.
+Open [http://127.0.0.1:43132/physics-1](http://127.0.0.1:43132/physics-1). Production mount: `https://study.anannt.ae/physics-1`. The dev script binds `0.0.0.0:43132`.
 
-Public pages: [About Anannt Education](http://127.0.0.1:43123/about) (course overview and method) and [Legal](http://127.0.0.1:43123/legal) (local data and College Board non-affiliation). Machine-readable: `/sitemap.xml` and `/robots.txt`. Set `NEXT_PUBLIC_SITE_URL` to the production origin used in canonical URLs, Open Graph, and JSON-LD (defaults to `https://anannt.education`).
+Public pages: subject home, exam guide (`/about`), FAQ, privacy, two Unit 1 lessons, and diagnostic start. Units 2–8 are unpublished. Canonical origin is `https://study.anannt.ae`.
 
 Use the header menu to switch **student / author / reviewer**, load demo students (Maya, Arjun, Priya), or advance the study clock by one day to make retrieval due.
 

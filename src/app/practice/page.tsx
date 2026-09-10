@@ -7,6 +7,7 @@ import { useStudent, useStudentActions } from "@/hooks/use-student";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Attempt, Difficulty, PublicItem } from "@/lib/types";
+import { appPath } from "@/lib/mount";
 import { Badge } from "@/components/ui/badge";
 import { MENTOR } from "@/content/mentor";
 import { MentorNote } from "@/components/mentor/mentor-note";
@@ -24,7 +25,7 @@ function PracticeInner() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/items?pool=practice")
+    fetch(appPath("/api/items?pool=practice"))
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) throw new Error(data.error ?? "Could not load practice items.");

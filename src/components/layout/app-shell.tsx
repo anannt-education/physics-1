@@ -21,6 +21,14 @@ import { emptyState } from "@/lib/planner";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MENTOR } from "@/content/mentor";
+import {
+  FOOTER_AP,
+  FOOTER_CONTACT,
+  FOOTER_STUDIO,
+  PUBLIC_LESSON_1,
+  PUBLIC_LESSON_2,
+  whatsappUrl,
+} from "@/lib/mount";
 
 const NAV = [
   { href: "/", label: "Today’s plan", icon: Home },
@@ -166,15 +174,31 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
           <nav aria-label="About and legal" className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             <Link href="/about" className="underline-offset-2 hover:underline">
-              About Anannt
+              Exam guide
             </Link>
-            <Link href="/course" className="underline-offset-2 hover:underline">
-              Course map
+            <Link href="/faq" className="underline-offset-2 hover:underline">
+              FAQ
             </Link>
-            <Link href="/legal" className="underline-offset-2 hover:underline">
-              Privacy and legal
+            <Link href="/privacy" className="underline-offset-2 hover:underline">
+              Privacy
+            </Link>
+            <Link href={PUBLIC_LESSON_1.path} className="underline-offset-2 hover:underline">
+              Lesson 1
+            </Link>
+            <Link href={PUBLIC_LESSON_2.path} className="underline-offset-2 hover:underline">
+              Lesson 2
             </Link>
           </nav>
+        </div>
+        <div className="mx-auto max-w-6xl space-y-2 px-4 pb-8 text-xs text-muted-foreground">
+          <p>{FOOTER_AP}</p>
+          <p>{FOOTER_STUDIO}</p>
+          <p>{FOOTER_CONTACT}</p>
+          <p>
+            <a className="underline underline-offset-2" href={whatsappUrl("physics-1-footer")}>
+              WhatsApp the Burjuman desk
+            </a>
+          </p>
         </div>
       </footer>
     </div>
