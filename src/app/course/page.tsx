@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { waitlistUrl } from "@/lib/gate";
 
 export default function CoursePage() {
   const { state } = useStudent();
@@ -25,10 +26,9 @@ export default function CoursePage() {
       <div>
         <h1 className="font-heading text-3xl">AP Physics 1 course map</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          Your mentor will not pretend Units 2–8 are built. Official unit names and MCQ weighting
-          ranges come from the College Board course page. This slice labels coverage honestly: the
-          foundation bridge and two Unit 1 kinematics lessons are here. Electrostatics, circuits,
-          optics, and calculus extensions are out of the required pathway.
+          Unit 1 kinematics is open. Units 2–8 are unpublished — we will not invent those
+          lessons. Official unit names and MCQ weighting ranges come from the College Board course
+          page. Ask to be told when a later unit is ready.
         </p>
       </div>
       <div className="grid gap-4">
@@ -38,7 +38,7 @@ export default function CoursePage() {
           const lessons = LESSONS.filter((l) => l.unitId === unit.id);
           const remaining = unit.inThisSlice
             ? `${lessons.filter((l) => state.lessonProgress[l.id]?.status !== "completed").length} lesson(s) remaining in the slice`
-            : `${UNIT_MCQ_WEIGHTS[unit.id]?.proposedLessons ?? unit.proposedLessons} proposed lessons — not in this slice`;
+            : `${UNIT_MCQ_WEIGHTS[unit.id]?.proposedLessons ?? unit.proposedLessons} proposed lessons — unpublished`;
           return (
             <Card key={unit.id}>
               <CardHeader>
@@ -47,7 +47,7 @@ export default function CoursePage() {
                     {unit.official ? `Unit ${unit.number}` : "Foundation"}
                   </Badge>
                   <Badge variant="outline">{unit.mcqWeight}</Badge>
-                  {!unit.inThisSlice ? <Badge variant="outline">Later</Badge> : null}
+                  {!unit.inThisSlice ? <Badge variant="outline">Unpublished</Badge> : null}
                 </div>
                 <CardTitle>{unit.name}</CardTitle>
                 <CardDescription>{unit.emphasis}</CardDescription>
@@ -80,6 +80,11 @@ export default function CoursePage() {
                     {state.lessonProgress[l.id]?.status === "completed" ? "Review" : "Open"} {l.title}
                   </Button>
                 ))}
+                {!unit.inThisSlice ? (
+                  <a className="inline-block text-sm underline" href={waitlistUrl(unit.id)}>
+                    Ask to be told when Unit {unit.number} lesson 1 is ready
+                  </a>
+                ) : null}
               </CardContent>
             </Card>
           );

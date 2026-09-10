@@ -14,6 +14,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { MENTOR } from "@/content/mentor";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import type { Attempt } from "@/lib/types";
+import { PUBLIC_LESSON_2, studyStartUrl } from "@/lib/gate";
 
 export default function LessonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -68,6 +69,10 @@ export default function LessonPage({ params }: { params: Promise<{ id: string }>
       const retrievalId =
         RETRIEVAL_ITEM_IDS[conceptId as keyof typeof RETRIEVAL_ITEM_IDS] ?? "ret-xt-slope";
       completeLesson(id, lesson!.conceptIds, retrievalId);
+      if (id === PUBLIC_LESSON_2) {
+        window.location.assign(studyStartUrl(lesson!.unitId));
+        return;
+      }
       router.push("/results?from=lesson");
       return;
     }
