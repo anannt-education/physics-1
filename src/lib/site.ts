@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
+import { SITE_URL as MOUNT_SITE_URL, absUrl as mountAbsUrl } from "@/lib/mount";
 
-/** Public origin for canonical URLs, OG, sitemap, and JSON-LD. Override in production. */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://anannt.education").replace(
-  /\/$/,
-  ""
-);
+/** Public origin + mount path for canonical URLs, OG, sitemap, and JSON-LD. */
+export const SITE_URL = MOUNT_SITE_URL;
 
 export const SITE_NAME = "Anannt Education";
 export const SITE_PRODUCT = "AP Physics 1";
 export const SITE_EXAM = "May 2027";
 
-export const DEFAULT_TITLE = "AP Physics 1 prep for the May 2027 exam";
+export const DEFAULT_TITLE = "Physics 1 Unit 1 — two graph-reading lessons";
 export const DEFAULT_DESCRIPTION =
-  "Anannt Education coaches AP Physics 1 for the May 2027 exam: diagnose the stuck idea, name why this task is next, repair graph reading, and keep scored items behind a second-person publish gate. A self-study supplement — not a predicted AP score and not College Board.";
+  "Unit 1 motion is open: two graph-reading lessons, no account. Units 2–8 are unpublished. Self-study for the May 2027 Physics 1 exam in Dubai.";
 
 export function canonicalPath(path: string) {
   if (!path || path === "/") return "/";
@@ -20,8 +18,7 @@ export function canonicalPath(path: string) {
 }
 
 export function absoluteUrl(path: string) {
-  const p = canonicalPath(path);
-  return p === "/" ? SITE_URL : `${SITE_URL}${p}`;
+  return mountAbsUrl(canonicalPath(path));
 }
 
 export function pageMetadata({
@@ -39,7 +36,7 @@ export function pageMetadata({
   return {
     title,
     description,
-    alternates: { canonical: canonicalPath(path) },
+    alternates: { canonical: url },
     robots: index
       ? { index: true, follow: true }
       : { index: false, follow: false },
@@ -67,93 +64,102 @@ export const ROUTES = {
   },
   about: {
     path: "/about",
-    title: "About Anannt Education and this AP Physics 1 course",
+    title: "How this Physics 1 desk teaches Unit 1",
     description:
-      "How Anannt Education coaches AP Physics 1: diagnosis before lecture, why-this-next planning, graph-reading repair, handwritten FRQ for the hybrid May 2027 exam, and scored-item authoring gates. Not affiliated with the College Board.",
+      "Two public graph-reading lessons, unpublished later units, and a repair path for height-versus-slope mix-ups. A self-study supplement for May 2027.",
   },
   legal: {
     path: "/legal",
-    title: "Privacy, local data, and non-affiliation",
+    title: "Privacy, local data, and College Board line",
     description:
-      "How this AP Physics 1 slice stores progress in your browser, what we do not collect in this release, and a clear statement that Anannt Education is not affiliated with the College Board.",
+      "Progress stays in this browser. No cart and no payment. Anannt Education is not affiliated with the College Board. Self-study supplement only.",
   },
   course: {
     path: "/course",
-    title: "AP Physics 1 course map — units, MCQ weights, Unit 1 slice",
+    title: "Physics 1 map — Unit 1 open, units 2–8 unpublished",
     description:
-      "Official AP Physics 1 unit names and MCQ weight ranges, with honest coverage: this slice builds the foundation bridge and two Unit 1 kinematics lessons. Units 2–8 are mapped, not filled.",
+      "Two Unit 1 motion and graph-reading lessons are public. Units 2–8 stay labelled unpublished — ask to be told when lesson 1 of a later unit is ready.",
   },
   practice: {
     path: "/practice",
-    title: "AP Physics 1 practice studio — independent motion items",
+    title: "Physics 1 practice studio",
     description:
-      "Untimed independent practice on motion graphs and kinematics. Hinted or solution-exposed answers do not count as mastery evidence. Protected mock items are excluded.",
+      "Independent motion items after the two public lessons. This path is gated. Hinted answers do not count as mastery evidence.",
+    index: false,
   },
   onboarding: {
     path: "/onboarding",
-    title: "Set up your May 2027 AP Physics 1 study plan",
+    title: "Physics 1 start gate",
     description:
-      "Tell your Anannt mentor how many hours you can study, your physics background, and access needs. We will name a feasible path — we will not compress the syllabus into a promise.",
+      "The start form lives on study.anannt.ae. Parent WhatsApp is required. This app does not collect a second form.",
+    index: false,
   },
   diagnostic: {
     path: "/diagnostic",
-    title: "Foundation diagnostic — graph reading and kinematics placement",
+    title: "Physics 1 diagnostic start — graph reading",
     description:
-      "A resumable 10-item foundation diagnostic. “I have not learned this yet” is not scored as a wrong model. Placement is provisional, never permanent mastery.",
+      "Start a foundation graph-reading check with no account. Submit sends you to study.anannt.ae/start. Placement, not a predicted score.",
   },
   review: {
     path: "/review",
     title: "Error notebook and delayed retrieval",
     description:
       "Each miss keeps the original response, the named misconception, a repair task, and a retest date. Delayed checks use unseen items and are capped in a session.",
+    index: false,
   },
   reviewPlay: {
     path: "/review/play",
     title: "Delayed retrieval check",
     description:
       "An unseen delayed check for a kinematics or graph-reading concept. An unsuccessful check shortens the next interval; struggle here is expected, not a verdict.",
+    index: false,
   },
   progress: {
     path: "/progress",
     title: "Coverage, retained concepts, and schedule honesty",
     description:
       "See what this AP Physics 1 slice has actually covered, which ideas survived delayed checks, and whether your weekly hours can support the plan. No fake AP score.",
+    index: false,
   },
   results: {
     path: "/results",
     title: "Diagnostic report and next study priorities",
     description:
       "Strengths, gaps, and the next concrete move after diagnosis or a lesson. Anannt will not state a confident AP readiness verdict from a Unit 1 slice.",
+    index: false,
   },
   mocks: {
     path: "/mocks",
-    title: "May 2027 AP Physics 1 exam specification",
+    title: "May 2027 Physics 1 exam specification",
     description:
-      "Versioned May 2027 format: 42 multiple-choice questions in 85 minutes and 4 free-response questions in 95 minutes. Full protected mocks are not in this Unit 1 slice.",
+      "Versioned May 2027 format notes. Protected mocks stay noindex and need a study session. This Unit 1 desk is not a complete commercial course.",
+    index: false,
   },
   admin: {
     path: "/admin",
     title: "Scored-item authoring and review gates",
     description:
       "Anannt’s publish rule: a second person must publish a scored item. Withdrawing hides an item from new attempts without rewriting old ones.",
+    index: false,
   },
   lessonMotion: {
     path: "/lesson/lesson-motion-graphs",
     title: "Reading motion from position-time graphs",
     description:
-      "Unit 1 lesson: determine speeding up, slowing down, or constant velocity from an x-t graph using slope, not height.",
+      "Unit 1 public lesson: speeding up, slowing down, or constant velocity from an x-t graph using slope, not height. No account required.",
   },
   lessonTurning: {
     path: "/lesson/lesson-zero-v-a",
     title: "Zero velocity with nonzero acceleration",
     description:
-      "Unit 1 lesson: explain why an object can be instantaneously at rest while its velocity is still changing — the turning-point idea on the May 2027 exam.",
+      "Unit 1 public lesson: rest can sit with nonzero acceleration at a turning point. Second open graph-reading lesson. No account required.",
   },
   frq: {
     path: "/frq/frq-flattening-graph",
     title: "Handwritten FRQ: a flattening position-time graph",
     description:
-      "Short paper-writing task for the hybrid May 2027 AP Physics 1 exam. Write on paper, upload pages, and self-mark against a reviewed rubric. Not Bluebook.",
+      "Short paper-writing task for the hybrid May 2027 Physics 1 exam. Gated after the two public lessons. Self-study supplement only.",
+    index: false,
   },
   repairSlope: {
     path: "/repair/repair-graph-slope",
@@ -199,7 +205,7 @@ export function courseJsonLd() {
     "@type": "Course",
     name: "AP Physics 1 exam preparation",
     description:
-      "Guided AP Physics 1 preparation for the May 2027 exam. The current release is a Unit 1 kinematics slice: foundation diagnostic, motion-graph lessons, practice, misconception repair, and a handwritten free-response task.",
+      "Guided Physics 1 preparation for the May 2027 exam. Two public Unit 1 motion and graph-reading lessons; units 2–8 unpublished. A self-study supplement, not a complete commercial course.",
     url: SITE_URL,
     provider: {
       "@type": "EducationalOrganization",
@@ -259,16 +265,9 @@ export const SITEMAP_PATHS = [
   ROUTES.about.path,
   ROUTES.legal.path,
   ROUTES.course.path,
-  ROUTES.practice.path,
-  ROUTES.onboarding.path,
   ROUTES.diagnostic.path,
-  ROUTES.review.path,
-  ROUTES.progress.path,
-  ROUTES.results.path,
-  ROUTES.mocks.path,
   ROUTES.lessonMotion.path,
   ROUTES.lessonTurning.path,
-  ROUTES.frq.path,
   ROUTES.repairSlope.path,
   ROUTES.repairTurning.path,
 ] as const;

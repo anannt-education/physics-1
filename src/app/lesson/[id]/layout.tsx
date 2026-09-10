@@ -16,15 +16,17 @@ export async function generateMetadata({
   if (!lesson) {
     return pageMetadata({
       title: "Lesson not in this slice",
-      description: "That AP Physics 1 lesson is not part of the Unit 1 kinematics slice.",
+      description: "That Physics 1 lesson is not part of the public Unit 1 pair. Later units stay unpublished.",
       path: `/lesson/${id}`,
       index: false,
     });
   }
+  const publicLesson = id === "lesson-motion-graphs" || id === "lesson-zero-v-a";
   return pageMetadata({
     title: lesson.title,
     description: lesson.outcome,
     path: `/lesson/${id}`,
+    index: publicLesson,
   });
 }
 
