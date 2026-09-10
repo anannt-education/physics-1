@@ -1,0 +1,228 @@
+import { CURRICULUM_VERSION } from "@/lib/types";
+import type { Item } from "@/lib/types";
+
+const BASE = {
+  curriculumVersion: CURRICULUM_VERSION,
+  version: 1,
+  calculator: "not_needed" as const,
+  source: "original" as const,
+  authorId: "author.mehta",
+  reviewerId: "reviewer.alvarez",
+  publicationState: "published" as const,
+};
+
+function item(p: Omit<Item, keyof typeof BASE> & Partial<Item>): Item {
+  return { ...BASE, ...p };
+}
+
+export const REPAIR_ITEMS: Item[] = [
+  item({
+    id: "repair-slope-triangle",
+    unitId: "foundation",
+    topicId: "f-graphs",
+    objectiveId: "F.G.1",
+    primaryConceptId: "c-slope-as-rate",
+    secondaryConceptIds: [],
+    sciencePractice: "representations",
+    type: "mcq",
+    difficulty: "foundation",
+    familyId: "fam-slope-read",
+    expectedTimeSec: 60,
+    prompt:
+      "On this graph, the marked rise is 6 m and the marked run is 3 s. Which quantity is the slope, and which is only the height of the later point?",
+    stimulus: {
+      kind: "position-time",
+      caption: "Slope triangle drawn on a straight x-t line.",
+      alt: "Line from 2 m at 1 s to 8 m at 4 s. Rise 6 m, run 3 s.",
+      points: [
+        { t: 1, x: 2 },
+        { t: 4, x: 8 },
+      ],
+      showSlope: true,
+      showHeight: true,
+    },
+    choices: [
+      { id: "a", text: "Slope is 8 m; height is 6 m / 3 s." },
+      { id: "b", text: "Slope is 6 m / 3 s = 2 m/s; the later height is 8 m." },
+      { id: "c", text: "Slope and height are the same number with different names." },
+      { id: "d", text: "Slope is 3 s; height is 6 m." },
+    ],
+    correctChoiceId: "b",
+    solution:
+      "The slope triangle gives rise/run = 6 m / 3 s = 2 m/s. The later point sits at 8 m; that 8 m is position, not slope.",
+    hints: [
+      "Circle the triangle — that is the rate.",
+      "The vertical coordinate of a point is position.",
+      "2 m/s vs 8 m.",
+    ],
+    misconceptionTags: ["mc-height-as-slope"],
+    exposurePool: "repair",
+    accessibilityDescription: "Distinguish slope triangle from point height.",
+  }),
+  item({
+    id: "repair-fresh-freefall-graph",
+    unitId: "u1",
+    topicId: "u1-graphs",
+    objectiveId: "1.K.2",
+    primaryConceptId: "c-xt-velocity",
+    secondaryConceptIds: ["c-slope-as-rate"],
+    sciencePractice: "conceptual",
+    type: "mcq",
+    difficulty: "standard",
+    familyId: "fam-height-slope",
+    expectedTimeSec: 70,
+    prompt:
+      "A dropped ball’s speed increases. Its speed-time graph is a rising straight line. At t = 3 s the graph is “higher” than at t = 1 s. Why is the ball faster at 3 s?",
+    stimulus: {
+      kind: "velocity-time",
+      caption: "Speed versus time for a dropped ball (speed is |v|).",
+      alt: "Straight line from 0 at t = 0 to larger speed at later times.",
+      points: [
+        { t: 0, v: 0 },
+        { t: 3, v: 30 },
+      ],
+      highlightT: 3,
+      showHeight: true,
+    },
+    choices: [
+      { id: "a", text: "Because the graph is higher at 3 s, and on this graph height is speed." },
+      { id: "b", text: "Because the slope is larger at 3 s than at 1 s." },
+      { id: "c", text: "Because time is larger, and time is speed." },
+      { id: "d", text: "The ball is not faster; height never means a larger value of the plotted quantity." },
+    ],
+    correctChoiceId: "a",
+    solution:
+      "You must read the axes. On a speed-time graph, the vertical coordinate is speed, so “higher” really is faster. That is the opposite of an x-t graph, where height is position. The slope here is acceleration, which is roughly constant, not increasing.",
+    hints: [
+      "This is a different pair of axes than x versus t.",
+      "Height means whatever the vertical axis says.",
+      "Here height is speed; slope is acceleration.",
+    ],
+    misconceptionTags: ["mc-height-as-slope"],
+    exposurePool: "repair",
+    accessibilityDescription: "Contrast height-as-speed on a v-t graph versus an x-t graph.",
+  }),
+];
+
+export const RETRIEVAL_ITEMS: Item[] = [
+  item({
+    id: "ret-xt-slope",
+    unitId: "u1",
+    topicId: "u1-graphs",
+    objectiveId: "1.K.2",
+    primaryConceptId: "c-xt-velocity",
+    secondaryConceptIds: ["c-slope-as-rate"],
+    sciencePractice: "conceptual",
+    type: "mcq",
+    difficulty: "standard",
+    familyId: "fam-retrieval-xt",
+    expectedTimeSec: 50,
+    prompt:
+      "Unseen check: a motorboat’s x-t graph is a shallow line high on the axes. A kayak’s x-t graph is a steep line near x = 0. Which craft has the greater speed?",
+    choices: [
+      { id: "a", text: "The motorboat, because its graph is higher." },
+      { id: "b", text: "The kayak, because its graph is steeper." },
+      { id: "c", text: "They have the same speed if they are drawn on one figure." },
+      { id: "d", text: "Neither; x-t graphs cannot show speed." },
+    ],
+    correctChoiceId: "b",
+    solution: "Speed is |slope| of x versus t. The kayak’s steeper graph means greater speed even if its position is smaller.",
+    hints: ["Unseen context, same rule.", "Steepness, not height.", "Kayak."],
+    misconceptionTags: ["mc-height-as-slope"],
+    exposurePool: "retrieval",
+    accessibilityDescription: "Delayed check: height versus slope with boats.",
+  }),
+  item({
+    id: "ret-turning",
+    unitId: "u1",
+    topicId: "u1-vectors",
+    objectiveId: "1.K.4",
+    primaryConceptId: "c-zero-v-nonzero-a",
+    secondaryConceptIds: [],
+    sciencePractice: "conceptual",
+    type: "mcq",
+    difficulty: "standard",
+    familyId: "fam-retrieval-turn",
+    expectedTimeSec: 50,
+    prompt:
+      "Unseen check: a fountain jet of water rises and falls. At the highest point of a droplet’s path, which is correct? Upward positive.",
+    choices: [
+      { id: "a", text: "v = 0 and a = 0" },
+      { id: "b", text: "v = 0 and a < 0" },
+      { id: "c", text: "v > 0 and a = 0" },
+      { id: "d", text: "v < 0 and a > 0" },
+    ],
+    correctChoiceId: "b",
+    solution: "Same turning-point structure as a tossed ball: instantaneous rest with downward acceleration.",
+    hints: ["New story, same physics.", "Gravity is still there.", "v = 0, a negative."],
+    misconceptionTags: ["mc-stop-means-a-zero"],
+    exposurePool: "retrieval",
+    accessibilityDescription: "Delayed check: droplet at the top of a fountain.",
+  }),
+  item({
+    id: "ret-explain",
+    unitId: "u1",
+    topicId: "u1-graphs",
+    objectiveId: "1.K.2",
+    primaryConceptId: "c-xt-velocity",
+    secondaryConceptIds: [],
+    sciencePractice: "conceptual",
+    type: "explanation",
+    difficulty: "standard",
+    familyId: "fam-retrieval-xt",
+    expectedTimeSec: 90,
+    prompt:
+      "In one sentence: how do you read speed from an x-t graph, and what mistake should you refuse?",
+    explanationRubric: [
+      {
+        id: "r1",
+        points: 1,
+        criterion: "Speed from |slope| / steepness / |Δx/Δt|.",
+        evidenceHint: "slope or steep",
+      },
+      {
+        id: "r2",
+        points: 1,
+        criterion: "Do not use height/position as speed.",
+        evidenceHint: "not height / not position",
+      },
+    ],
+    solution: "Read speed from how steep the graph is. Do not treat a large position as a large speed.",
+    hints: ["Name slope.", "Name the forbidden shortcut.", "Steep ≠ high."],
+    misconceptionTags: ["mc-height-as-slope"],
+    exposurePool: "retrieval",
+    accessibilityDescription: "Delayed written retrieval of the slope rule.",
+  }),
+];
+
+export const CMS_DRAFT_ITEMS: Item[] = [
+  item({
+    id: "cms-draft-crossing",
+    unitId: "u1",
+    topicId: "u1-graphs",
+    objectiveId: "1.K.2",
+    primaryConceptId: "c-xt-velocity",
+    secondaryConceptIds: [],
+    sciencePractice: "conceptual",
+    type: "mcq",
+    difficulty: "standard",
+    familyId: "fam-height-slope",
+    expectedTimeSec: 60,
+    publicationState: "in_review",
+    reviewerId: undefined,
+    prompt:
+      "Two runners’ x-t graphs cross. At the crossing instant they have the same position. Which statement must be true?",
+    choices: [
+      { id: "a", text: "They have the same velocity." },
+      { id: "b", text: "They have the same position; their velocities can differ." },
+      { id: "c", text: "The one who is about to be higher is faster before the crossing." },
+      { id: "d", text: "Crossing is impossible if they started at different times." },
+    ],
+    correctChoiceId: "b",
+    solution: "A crossing matches position at one time. Slopes (velocities) need not match.",
+    hints: ["Crossing is about x, not v.", "Slopes can differ at an intersection.", "Same position, maybe different v."],
+    misconceptionTags: ["mc-height-as-slope"],
+    exposurePool: "practice",
+    accessibilityDescription: "Draft item: crossing x-t graphs.",
+  }),
+];
