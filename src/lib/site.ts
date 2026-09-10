@@ -10,7 +10,7 @@ export const SITE_EXAM = "May 2027";
 
 export const DEFAULT_TITLE = "Physics 1 Unit 1 — two graph-reading lessons";
 export const DEFAULT_DESCRIPTION =
-  "Unit 1 motion is open: two graph-reading lessons, no account. Units 2–8 are unpublished. Self-study for the May 2027 Physics 1 exam in Dubai.";
+  "Unit 1 motion is open: two graph-reading lessons, no account. Units 2–8 stay unpublished. Self-study for the May 2027 Physics 1 exam taught from Dubai.";
 
 export function canonicalPath(path: string) {
   if (!path || path === "/") return "/";
@@ -66,19 +66,19 @@ export const ROUTES = {
     path: "/about",
     title: "How this Physics 1 desk teaches Unit 1",
     description:
-      "Two public graph-reading lessons, unpublished later units, and a repair path for height-versus-slope mix-ups. A self-study supplement for May 2027.",
+      "Two public graph-reading lessons, unpublished later units, and a repair path for height-versus-slope mix-ups. A self-study supplement for May 2027 in Dubai.",
   },
   legal: {
     path: "/legal",
     title: "Privacy, local data, and College Board line",
     description:
-      "Progress stays in this browser. No cart and no payment. Anannt Education is not affiliated with the College Board. Self-study supplement only.",
+      "Progress stays in this browser. No cart and no payment. Anannt Education is not affiliated with the College Board. Self-study supplement only in Dubai.",
   },
   course: {
     path: "/course",
     title: "Physics 1 map — Unit 1 open, units 2–8 unpublished",
     description:
-      "Two Unit 1 motion and graph-reading lessons are public. Units 2–8 stay labelled unpublished — ask to be told when lesson 1 of a later unit is ready.",
+      "Two Unit 1 motion and graph-reading lessons are public. Units 2–8 stay labelled unpublished. Ask to be told when lesson 1 of a later unit is ready here.",
   },
   practice: {
     path: "/practice",
@@ -98,7 +98,7 @@ export const ROUTES = {
     path: "/diagnostic",
     title: "Physics 1 diagnostic start — graph reading",
     description:
-      "Start a foundation graph-reading check with no account. Submit sends you to study.anannt.ae/start. Placement, not a predicted score.",
+      "Start a foundation graph-reading check with no account. Submit sends you to study.anannt.ae/start. Placement help, not a predicted Physics 1 exam score.",
   },
   review: {
     path: "/review",
@@ -146,13 +146,13 @@ export const ROUTES = {
     path: "/lesson/lesson-motion-graphs",
     title: "Reading motion from position-time graphs",
     description:
-      "Unit 1 public lesson: speeding up, slowing down, or constant velocity from an x-t graph using slope, not height. No account required.",
+      "Unit 1 public lesson: speeding up, slowing down, or constant velocity from an x-t graph using slope, not height. No account. A Dubai self-study lesson.",
   },
   lessonTurning: {
     path: "/lesson/lesson-zero-v-a",
     title: "Zero velocity with nonzero acceleration",
     description:
-      "Unit 1 public lesson: rest can sit with nonzero acceleration at a turning point. Second open graph-reading lesson. No account required.",
+      "Unit 1 public lesson: rest can sit with nonzero acceleration at a turning point. Second open graph-reading lesson. No account. A Dubai self-study path.",
   },
   frq: {
     path: "/frq/frq-flattening-graph",
@@ -165,13 +165,13 @@ export const ROUTES = {
     path: "/repair/repair-graph-slope",
     title: "Repair: graph height is not slope",
     description:
-      "A short Anannt repair path for the height-as-slope mix-up. Name the misconception, separate the slope triangle from the height of a point, then try a fresh graph.",
+      "A short Anannt repair path for the height-as-slope mix-up. Name the misconception, separate the slope triangle from the height of a point, then retry.",
   },
   repairTurning: {
     path: "/repair/repair-turning-point",
     title: "Repair: stopping is not zero acceleration",
     description:
-      "Repair the idea that rest means acceleration is zero. At a turning point, velocity can be zero while acceleration remains nonzero.",
+      "Repair the idea that rest means acceleration is zero. At a turning point, velocity can be zero while acceleration remains nonzero. Dubai self-study only.",
   },
 } as const;
 
