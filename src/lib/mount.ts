@@ -22,12 +22,17 @@ export const PUBLIC_LESSONS = [
   },
 ] as const;
 
-export const PUBLIC_LESSON_IDS = new Set(PUBLIC_LESSONS.map((l) => l.id));
+export const PUBLIC_LESSON_IDS: ReadonlySet<string> = new Set(PUBLIC_LESSONS.map((l) => l.id));
 export const LESSON_2 = PUBLIC_LESSONS[1];
 
 export function absUrl(path = "/") {
   const p = !path || path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}${p}`;
+}
+
+export function apiPath(path: string) {
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return `${BASE_PATH}${p}`;
 }
 
 export function gateHref(unit = "") {
