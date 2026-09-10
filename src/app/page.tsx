@@ -35,7 +35,7 @@ export default function HomePage() {
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {named
             ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent an AP score from a Unit 1 slice, and this is not College Board’s Bluebook."
-            : "Anannt Education coaches the May 2027 exam the way a careful teacher would: find the stuck idea, repair graph reading when height is treated as slope, and keep scored keys behind a second-person publish gate. A self-study supplement — not a predicted score and not an official practice exam."}
+            : "Two Unit 1 motion lessons are public. Units 2–8 are unpublished. A self-study supplement — Anannt does not predict an AP score."}
         </p>
       </header>
 
@@ -100,12 +100,23 @@ export default function HomePage() {
       </section>
       {!named ? (
         <p className="text-sm text-muted-foreground">
-          New here? Read{" "}
-          <Link href="/about" className="underline underline-offset-2">
-            how Anannt Education coaches this exam
+          New here? Open{" "}
+          <Link href="/lesson/lesson-motion-graphs" className="underline underline-offset-2">
+            motion graphs
+          </Link>{" "}
+          then{" "}
+          <Link href="/lesson/lesson-zero-v-a" className="underline underline-offset-2">
+            turning points
           </Link>
-          , then set up a plan. Demo students Maya, Arjun, and Priya are in the header if you want to
-          see a repair, a challenge route, or a solution-exposed check.
+          , or{" "}
+          <Link href="/diagnostic" className="underline underline-offset-2">
+            start the diagnostic
+          </Link>
+          . Read{" "}
+          <Link href="/about" className="underline underline-offset-2">
+            the exam guide
+          </Link>
+          . Units 2–8 stay unpublished.
         </p>
       ) : null}
 

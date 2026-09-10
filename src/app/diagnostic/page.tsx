@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { QuestionPlayer } from "@/components/question/question-player";
 import { useStudent, useStudentActions } from "@/hooks/use-student";
@@ -9,6 +9,8 @@ import { Progress } from "@/components/ui/progress";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import type { Attempt } from "@/lib/types";
+import { trackEvent } from "@/lib/events";
+import { continueOrStart } from "@/lib/gate-client";
 
 const FORM = "foundation-diagnostic-v1";
 
@@ -17,6 +19,8 @@ export default function DiagnosticPage() {
   const { state } = useStudent();
   const { upsertAttempt, recordScore } = useStudentActions();
 
+  const [started, setStarted] = useState(false);
+
   const attempt = useMemo(() => {
     return (
       state.attempts.find((a) => a.kind === "diagnostic" && a.status !== "abandoned") ?? null
@@ -24,13 +28,8 @@ export default function DiagnosticPage() {
   }, [state.attempts]);
 
   useEffect(() => {
-    if (!state.profile) {
-      router.replace("/onboarding");
-    }
-  }, [state.profile, router]);
-
-  useEffect(() => {
-    if (!attempt && state.profile) {
+    if (!started) return;
+    if (!attempt) {
       const next: Attempt = {
         id: `att-diag-${Date.now()}`,
         kind: "diagnostic",
@@ -44,13 +43,27 @@ export default function DiagnosticPage() {
       };
       upsertAttempt(next);
     }
-  }, [attempt, state.profile, upsertAttempt]);
+  }, [attempt, started, upsertAttempt]);
 
-  useEffect(() => {
-    if (attempt?.status === "completed") {
-      router.replace("/results?from=diagnostic");
-    }
-  }, [attempt?.status, router]);
+  if (!started) {
+    return (
+      <div className="space-y-4">
+        <h1 className="font-heading text-3xl">Foundation diagnostic</h1>
+        <p className="text-muted-foreground">
+          Start the Unit 1 graph-reading check. “I have not learned this yet” is allowed. After you submit, continue
+          with a mentor on study.anannt.ae.
+        </p>
+        <Button
+          onClick={() => {
+            trackEvent("diagnostic_start");
+            setStarted(true);
+          }}
+        >
+          Start the diagnostic
+        </Button>
+      </div>
+    );
+  }
 
   if (!attempt) {
     return (
@@ -111,6 +124,7 @@ export default function DiagnosticPage() {
               status: "completed",
               completedAt: new Date().toISOString(),
             });
+            if (continueOrStart("u1")) return;
             router.push("/results?from=diagnostic");
           } else {
             upsertAttempt({ ...attempt, currentIndex: nextIndex });
