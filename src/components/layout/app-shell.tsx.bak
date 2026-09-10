@@ -1,0 +1,146 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  BookOpen,
+  ClipboardCheck,
+  Flag,
+  Home,
+  Map,
+  Menu,
+  NotebookPen,
+  PenLine,
+  Settings2,
+  TimerReset,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useStudent, useStudentActions } from "@/hooks/use-student";
+import { SCENARIOS } from "@/lib/scenarios";
+import { emptyState } from "@/lib/planner";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+
+const NAV = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/course", label: "Course map", icon: Map },
+  { href: "/practice", label: "Practice", icon: ClipboardCheck },
+  { href: "/review", label: "Notebook", icon: NotebookPen },
+  { href: "/progress", label: "Progress", icon: BookOpen },
+  { href: "/mocks", label: "Mocks", icon: Flag },
+  { href: "/admin", label: "Authoring", icon: PenLine },
+];
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { state, ready, error } = useStudent();
+  const { setState, replaceState } = useStudentActions();
+
+  const links = (
+    <nav className="flex flex-col gap-1">
+      {NAV.map((item) => {
+        const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+        const Icon = item.icon;
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm",
+              active ? "bg-primary/10 font-medium text-primary" : "text-muted-foreground hover:bg-muted"
+            )}
+          >
+            <Icon className="size-4" />
+            {item.label}
+          </Link>
+        );
+      })}
+    </nav>
+  );
+
+  return (
+    <div className="flex min-h-full flex-col">
+      <header className="sticky top-0 z-20 border-b bg-background/90 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4">
+          <Sheet>
+            <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden" />}>
+              <Menu />
+              <span className="sr-only">Open menu</span>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64">
+              <SheetHeader>
+                <SheetTitle>Anannt Physics 1</SheetTitle>
+              </SheetHeader>
+              <div className="px-2">{links}</div>
+            </SheetContent>
+          </Sheet>
+          <Link href="/" className="font-heading text-lg tracking-tight">
+            Anannt <span className="text-primary">Physics 1</span>
+          </Link>
+          <Badge variant="outline" className="hidden sm:inline-flex">
+            May 2027 cohort · Unit 1 slice
+          </Badge>
+          <div className="ml-auto flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline" size="sm" />}>
+                <Settings2 /> {state.role}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64">
+                <DropdownMenuLabel>Role</DropdownMenuLabel>
+                {(["student", "author", "reviewer"] as const).map((role) => (
+                  <DropdownMenuItem key={role} onClick={() => setState((s) => ({ ...s, role, actorId: `${role}.local` }))}>
+                    {role}
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>Demo students</DropdownMenuLabel>
+                {SCENARIOS.map((sc) => (
+                  <DropdownMenuItem
+                    key={sc.id}
+                    onClick={() => {
+                      replaceState(sc.load());
+                      router.push("/");
+                    }}
+                  >
+                    {sc.name}
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() =>
+                    setState((s) => ({ ...s, clockOffsetMs: s.clockOffsetMs + 86400000 }))
+                  }
+                >
+                  <TimerReset /> Advance study clock 1 day
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => replaceState(emptyState())}>Reset local progress</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </header>
+      <div className="mx-auto flex w-full max-w-6xl flex-1 gap-8 px-4 py-6">
+        <aside className="hidden w-52 shrink-0 md:block">{links}</aside>
+        <main className="min-w-0 flex-1">
+          {!ready ? (
+            <p className="text-muted-foreground">Restoring your local record…</p>
+          ) : error ? (
+            <p className="text-destructive">{error}</p>
+          ) : (
+            children
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}
