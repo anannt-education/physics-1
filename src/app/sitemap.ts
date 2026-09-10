@@ -3,10 +3,10 @@ import { absoluteUrl, SITEMAP_PATHS } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  return SITEMAP_PATHS.map((path) => ({
+  return SITEMAP_PATHS.map((path, i) => ({
     url: absoluteUrl(path),
     lastModified: now,
-    changeFrequency: path === "/" || path === "/about" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : path === "/about" || path === "/course" ? 0.8 : 0.6,
+    changeFrequency: i === 0 ? "weekly" : "monthly",
+    priority: i === 0 ? 1 : 0.8,
   }));
 }

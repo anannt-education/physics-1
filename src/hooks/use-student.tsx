@@ -21,6 +21,7 @@ import type {
 } from "@/lib/types";
 import { nowFrom } from "@/lib/planner";
 import { scheduleRetrieval } from "@/lib/mastery";
+import { appPath } from "@/lib/mount";
 import {
   commitStudentState,
   getClientReady,
@@ -116,7 +117,7 @@ export function useStudentActions() {
       }));
 
       try {
-        const res = await fetch("/api/score", {
+        const res = await fetch(appPath("/api/score"), {
           method: "POST",
           headers: { "Content-Type": "application/json", "Idempotency-Key": event.id },
           body: JSON.stringify({
