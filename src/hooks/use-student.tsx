@@ -33,6 +33,7 @@ import {
 } from "@/lib/student-store";
 import { getMisconception } from "@/content/curriculum";
 import { LESSONS } from "@/content/lessons";
+import { BASE_PATH } from "@/lib/mount";
 
 interface StudentContextValue {
   state: StudentState;
@@ -116,7 +117,7 @@ export function useStudentActions() {
       }));
 
       try {
-        const res = await fetch("/api/score", {
+        const res = await fetch(`${BASE_PATH}/api/score`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "Idempotency-Key": event.id },
           body: JSON.stringify({
