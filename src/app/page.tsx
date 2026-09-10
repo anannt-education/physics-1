@@ -12,6 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import { MENTOR } from "@/content/mentor";
 import { ArrowRight, Clock, Flag, ListChecks } from "lucide-react";
+import { PUBLIC_LESSONS, gateHref, waitlistHref } from "@/lib/mount";
 
 export default function HomePage() {
   const { state, now } = useStudent();
@@ -25,19 +26,37 @@ export default function HomePage() {
     <div className="space-y-8">
       <header>
         <p className="text-sm font-medium tracking-wide text-primary">
-          Anannt Education · AP Physics 1 · May 2027 exam
+          Self-prep studio · May 2027 · Physics 1 Unit 1
         </p>
         <h1 className="mt-1 font-heading text-3xl tracking-tight sm:text-4xl">
           {named
             ? `${state.profile!.displayName}, here is today’s study — and why this is next.`
-            : "AP Physics 1 prep that diagnoses first, then names the next move."}
+            : "Two Unit 1 graph-reading lessons. Units 2–8 are unpublished."}
         </h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {named
-            ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent an AP score from a Unit 1 slice, and this is not College Board’s Bluebook."
-            : "Anannt Education coaches the May 2027 exam the way a careful teacher would: find the stuck idea, repair graph reading when height is treated as slope, and keep scored keys behind a second-person publish gate. A self-study supplement — not a predicted score and not an official practice exam."}
+            ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent a score from a Unit 1 slice."
+            : "Open motion graphs, then the turning-point idea. No account. After lesson 2 we send you to study.anannt.ae/start. Later units wait for faculty review — they are not a hidden course."}
         </p>
       </header>
+
+      {!named ? (
+        <div className="grid gap-4 md:grid-cols-2">
+          {PUBLIC_LESSONS.map((lesson, i) => (
+            <Card key={lesson.id} className="border-primary/20">
+              <CardHeader>
+                <CardDescription>Public lesson {i + 1} · Unit 1</CardDescription>
+                <CardTitle>{lesson.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Button nativeButton={false} render={<Link href={lesson.path} />}>
+                  {i === 0 ? "Start lesson 1 — free, no account" : "Open lesson 2"} <ArrowRight />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : null}
 
       {unsynced.length > 0 ? (
         <Alert>
@@ -161,8 +180,15 @@ export default function HomePage() {
               one handwritten explanation of a flattening graph.
             </p>
             <p className="mt-2 text-muted-foreground">
-              Full mocks (42/85 and 4/95) are specified for later. This slice does not sell a
-              complete syllabus.
+              Full mocks stay gated. Units 2–8 are unpublished —{" "}
+              <a className="underline underline-offset-2" href={waitlistHref("u2")}>
+                ask to be told when a later unit is ready
+              </a>
+              . After two lessons,{" "}
+              <a className="underline underline-offset-2" href={gateHref("u1")}>
+                continue on study.anannt.ae/start
+              </a>
+              .
             </p>
           </CardContent>
         </Card>

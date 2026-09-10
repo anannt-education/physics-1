@@ -21,6 +21,7 @@ import { emptyState } from "@/lib/planner";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MENTOR } from "@/content/mentor";
+import { LEGAL, PUBLIC_LESSONS, gateHref, waitlistHref } from "@/lib/mount";
 
 const NAV = [
   { href: "/", label: "Today’s plan", icon: Home },
@@ -155,26 +156,43 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           )}
         </main>
       </div>
-      <footer className="border-t bg-muted/40">
+      <footer className="border-t bg-[#0F245C] text-[#F4EFE4]">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-xl space-y-1">
             <p className="font-heading text-base">Anannt Education</p>
-            <p className="text-sm text-muted-foreground">
-              AP Physics 1 mentor for the May 2027 exam. Diagnosis, graph-reading repair, and scored-item
-              review gates — not a ranking claim and not a College Board product.
+            <p className="text-sm text-white/80">
+              Physics 1 on study.anannt.ae — Unit 1 two graph-reading lessons. Units 2–8 unpublished.
             </p>
           </div>
           <nav aria-label="About and legal" className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             <Link href="/about" className="underline-offset-2 hover:underline">
-              About Anannt
+              About
             </Link>
             <Link href="/course" className="underline-offset-2 hover:underline">
               Course map
             </Link>
-            <Link href="/legal" className="underline-offset-2 hover:underline">
-              Privacy and legal
+            <Link href={PUBLIC_LESSONS[0].path} className="underline-offset-2 hover:underline">
+              Lesson 1
             </Link>
+            <Link href={PUBLIC_LESSONS[1].path} className="underline-offset-2 hover:underline">
+              Lesson 2
+            </Link>
+            <Link href="/legal" className="underline-offset-2 hover:underline">
+              Privacy
+            </Link>
+            <a href={waitlistHref("u2")} className="underline-offset-2 hover:underline">
+              Later units
+            </a>
+            <a href={gateHref("u1")} className="underline-offset-2 hover:underline">
+              After two lessons
+            </a>
           </nav>
+        </div>
+        <div className="mx-auto max-w-6xl space-y-2 px-4 pb-6 text-xs leading-relaxed text-white/75">
+          <p>{LEGAL.ap}</p>
+          <p>{LEGAL.psat}</p>
+          <p>{LEGAL.supplement}</p>
+          <p>{LEGAL.nap}</p>
         </div>
       </footer>
     </div>

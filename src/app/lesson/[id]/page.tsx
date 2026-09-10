@@ -14,6 +14,8 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { MENTOR } from "@/content/mentor";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import type { Attempt } from "@/lib/types";
+import { isLesson2, PUBLIC_LESSONS } from "@/lib/mount";
+import { redirectToGate } from "@/lib/gate-client";
 
 export default function LessonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -68,7 +70,11 @@ export default function LessonPage({ params }: { params: Promise<{ id: string }>
       const retrievalId =
         RETRIEVAL_ITEM_IDS[conceptId as keyof typeof RETRIEVAL_ITEM_IDS] ?? "ret-xt-slope";
       completeLesson(id, lesson!.conceptIds, retrievalId);
-      router.push("/results?from=lesson");
+      if (isLesson2(id)) {
+        redirectToGate(PUBLIC_LESSONS[1].unit);
+        return;
+      }
+      router.push(PUBLIC_LESSONS[1].path);
       return;
     }
     setState((s) => ({

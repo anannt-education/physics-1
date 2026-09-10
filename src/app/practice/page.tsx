@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { MENTOR } from "@/content/mentor";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { apiPath } from "@/lib/mount";
 
 function PracticeInner() {
   const params = useSearchParams();
@@ -24,7 +25,7 @@ function PracticeInner() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/items?pool=practice")
+    fetch(apiPath("/api/items?pool=practice"))
       .then(async (r) => {
         const data = await r.json();
         if (!r.ok) throw new Error(data.error ?? "Could not load practice items.");

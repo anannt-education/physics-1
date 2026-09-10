@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getLesson, LESSONS } from "@/content/lessons";
-import { pageMetadata } from "@/lib/site";
+import { pageMetadata, ROUTES } from "@/lib/site";
 
 export function generateStaticParams() {
   return LESSONS.map((lesson) => ({ id: lesson.id }));
@@ -16,15 +16,23 @@ export async function generateMetadata({
   if (!lesson) {
     return pageMetadata({
       title: "Lesson not in this slice",
-      description: "That AP Physics 1 lesson is not part of the Unit 1 kinematics slice.",
+      description: "That Physics 1 lesson is not part of the public Unit 1 pair. Later units stay unpublished.",
       path: `/lesson/${id}`,
       index: false,
     });
   }
+  const publicSeo =
+    id === "lesson-motion-graphs"
+      ? ROUTES.lessonMotion
+      : id === "lesson-zero-v-a"
+        ? ROUTES.lessonTurning
+        : null;
+  const publicLesson = Boolean(publicSeo);
   return pageMetadata({
-    title: lesson.title,
-    description: lesson.outcome,
+    title: publicSeo?.title ?? lesson.title,
+    description: publicSeo?.description ?? lesson.outcome,
     path: `/lesson/${id}`,
+    index: publicLesson,
   });
 }
 
