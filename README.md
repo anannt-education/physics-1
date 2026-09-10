@@ -1,27 +1,19 @@
 # Anannt AP Physics 1
 
-Guided, adaptive exam-preparation for AP Physics 1 (May 2027 format). This repository is the first production-quality **Unit 1 slice**: foundation diagnostic, two motion-representation lessons, practice, a misconception repair path, spaced retrieval, a short handwritten FRQ, a student results page, and an author/reviewer publish workflow.
+Self-study Unit 1 slice for AP Physics 1 (May 2027), mounted at `https://study.anannt.ae/physics-1`.
 
-The product is a self-study supplement. It does not promise an AP score and does not claim College Board endorsement or Bluebook equivalence.
+Two motion / graph-reading lessons are public without an account. Units 2–8 are unpublished. This desk does not predict an official AP score.
 
-Repository: https://github.com/anannt-education/physics-1
+## Public without an account
 
-## What is in this slice
+- Subject home: `/physics-1`
+- Exam guide: `/physics-1/about`
+- Lesson 1 — motion graphs: `/physics-1/lesson/lesson-motion-graphs`
+- Lesson 2 — turning point: `/physics-1/lesson/lesson-zero-v-a`
+- Diagnostic start: `/physics-1/diagnostic`
+- Graph-repair paths may stay public under `/physics-1/repair/...`
 
-- Home with one Continue action, today’s plan, review due, next milestone, and weekly effort
-- Onboarding (exam year, time, math confidence, accessibility)
-- Foundation diagnostic that resumes after refresh
-- Course map for all eight official units (Units 2–8 marked as later)
-- Lesson workspace: outcome, prerequisite check, prediction, explanation with diagrams, worked example, partial example, independent check, representation task, exit check, retrieval schedule
-- Practice studio (26 reviewed items)
-- Graph-slope repair path and turning-point repair
-- Handwritten FRQ upload with page reorder and guided self-mark
-- Error notebook and delayed retrieval
-- Results that refuse a confident readiness verdict
-- Versioned May 2027 exam specification in the mock centre
-- Author/reviewer console: a second person must publish; withdraw does not rewrite old attempts
-
-Progress is stored in this browser (`localStorage`). Scoring runs on the Next.js server so answer keys are not shipped in question payloads.
+After lesson 2, a diagnostic submit, or a visit to practice / FRQ / mocks, the app redirects to `https://study.anannt.ae/start?subject=physics-1`.
 
 ## Run locally
 
@@ -30,16 +22,6 @@ npm install
 npm run dev
 ```
 
-Open [http://127.0.0.1:43123](http://127.0.0.1:43123). The dev script binds `0.0.0.0:43123`. For a production preview, run `npm run build` and then `npx next start --hostname 0.0.0.0 --port 43123`.
+Open [http://127.0.0.1:43141/physics-1](http://127.0.0.1:43141/physics-1).
 
-Public pages: [About Anannt Education](http://127.0.0.1:43123/about) (course overview and method) and [Legal](http://127.0.0.1:43123/legal) (local data and College Board non-affiliation). Machine-readable: `/sitemap.xml` and `/robots.txt`. Set `NEXT_PUBLIC_SITE_URL` to the production origin used in canonical URLs, Open Graph, and JSON-LD (defaults to `https://anannt.education`).
-
-Use the header menu to switch **student / author / reviewer**, load demo students (Maya, Arjun, Priya), or advance the study clock by one day to make retrieval due.
-
-## Stack
-
-Next.js, TypeScript, Tailwind CSS, shadcn/ui.
-
-## Deferred from the PRD
-
-Accounts and entitlements, PostgreSQL, object storage, two protected full mocks, Units 2–8 lessons, AI tutor, interactive simulations, parent/mentor production consoles, payments, and school cohorts.
+Canonical URLs use `https://study.anannt.ae/physics-1`.

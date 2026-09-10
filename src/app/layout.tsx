@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     "Anannt Education",
   ],
   referrer: "origin-when-cross-origin",
-  alternates: { canonical: "/" },
+  alternates: { canonical: SITE_URL },
   robots: {
     index: true,
     follow: true,

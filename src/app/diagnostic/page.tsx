@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import type { Attempt } from "@/lib/types";
+import { gateUrl } from "@/lib/mount";
 
 const FORM = "foundation-diagnostic-v1";
 
@@ -24,13 +25,7 @@ export default function DiagnosticPage() {
   }, [state.attempts]);
 
   useEffect(() => {
-    if (!state.profile) {
-      router.replace("/onboarding");
-    }
-  }, [state.profile, router]);
-
-  useEffect(() => {
-    if (!attempt && state.profile) {
+    if (!attempt) {
       const next: Attempt = {
         id: `att-diag-${Date.now()}`,
         kind: "diagnostic",
@@ -44,13 +39,13 @@ export default function DiagnosticPage() {
       };
       upsertAttempt(next);
     }
-  }, [attempt, state.profile, upsertAttempt]);
+  }, [attempt, upsertAttempt]);
 
   useEffect(() => {
     if (attempt?.status === "completed") {
-      router.replace("/results?from=diagnostic");
+      window.location.assign(gateUrl("u1"));
     }
-  }, [attempt?.status, router]);
+  }, [attempt?.status]);
 
   if (!attempt) {
     return (
@@ -111,7 +106,7 @@ export default function DiagnosticPage() {
               status: "completed",
               completedAt: new Date().toISOString(),
             });
-            router.push("/results?from=diagnostic");
+            window.location.assign(gateUrl("u1"));
           } else {
             upsertAttempt({ ...attempt, currentIndex: nextIndex });
           }

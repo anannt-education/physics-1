@@ -27,8 +27,7 @@ export default function CoursePage() {
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Your mentor will not pretend Units 2–8 are built. Official unit names and MCQ weighting
           ranges come from the College Board course page. This slice labels coverage honestly: the
-          foundation bridge and two Unit 1 kinematics lessons are here. Electrostatics, circuits,
-          optics, and calculus extensions are out of the required pathway.
+          foundation bridge and two Unit 1 kinematics lessons are here. Units 2–8 are unpublished.
         </p>
       </div>
       <div className="grid gap-4">
@@ -47,7 +46,7 @@ export default function CoursePage() {
                     {unit.official ? `Unit ${unit.number}` : "Foundation"}
                   </Badge>
                   <Badge variant="outline">{unit.mcqWeight}</Badge>
-                  {!unit.inThisSlice ? <Badge variant="outline">Later</Badge> : null}
+                  {!unit.inThisSlice ? <Badge variant="outline">Unpublished</Badge> : null}
                 </div>
                 <CardTitle>{unit.name}</CardTitle>
                 <CardDescription>{unit.emphasis}</CardDescription>
