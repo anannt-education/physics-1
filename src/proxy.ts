@@ -25,6 +25,7 @@ function isPublic(pathname: string): boolean {
   if (PUBLIC_LESSONS.has(pathname)) return true;
   if (pathname.startsWith("/repair/")) return true;
   if (pathname.startsWith("/api/events")) return true;
+  if (pathname.startsWith("/api/keys")) return true;
   if (pathname.startsWith("/api/score")) return true;
   if (pathname.startsWith("/api/items")) return true;
   if (pathname.startsWith("/opengraph-image")) return true;
