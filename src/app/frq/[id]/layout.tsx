@@ -26,6 +26,7 @@ export async function generateMetadata({
     description:
       "Handwritten free-response practice for the hybrid May 2027 AP Physics 1 exam. Write on paper, upload pages, and self-mark. Not Bluebook.",
     path: `/frq/${id}`,
+    index: false,
   });
 }
 

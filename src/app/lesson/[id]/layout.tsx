@@ -21,10 +21,12 @@ export async function generateMetadata({
       index: false,
     });
   }
+  const publicLesson = id === "lesson-motion-graphs" || id === "lesson-zero-v-a";
   return pageMetadata({
     title: lesson.title,
     description: lesson.outcome,
     path: `/lesson/${id}`,
+    index: publicLesson,
   });
 }
 

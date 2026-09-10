@@ -21,6 +21,7 @@ import { emptyState } from "@/lib/planner";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MENTOR } from "@/content/mentor";
+import { LEGAL_LINES, NAP } from "@/lib/site";
 
 const NAV = [
   { href: "/", label: "Today’s plan", icon: Home },
@@ -160,9 +161,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="max-w-xl space-y-1">
             <p className="font-heading text-base">Anannt Education</p>
             <p className="text-sm text-muted-foreground">
-              AP Physics 1 mentor for the May 2027 exam. Diagnosis, graph-reading repair, and scored-item
-              review gates — not a ranking claim and not a College Board product.
+              AP Physics 1 self-prep for May 2027. Two Unit 1 motion lessons are open. Units 2–8 are unpublished.
             </p>
+            {LEGAL_LINES.map((line) => (
+              <p key={line.slice(0, 24)} className="text-xs text-muted-foreground">
+                {line}
+              </p>
+            ))}
+            <p className="text-xs text-muted-foreground">{NAP}</p>
           </div>
           <nav aria-label="About and legal" className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
             <Link href="/about" className="underline-offset-2 hover:underline">

@@ -30,12 +30,12 @@ export default function HomePage() {
         <h1 className="mt-1 font-heading text-3xl tracking-tight sm:text-4xl">
           {named
             ? `${state.profile!.displayName}, here is today’s study — and why this is next.`
-            : "AP Physics 1 prep that diagnoses first, then names the next move."}
+            : "Unit 1 motion is open. Units 2–8 are unpublished."}
         </h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {named
-            ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent an AP score from a Unit 1 slice, and this is not College Board’s Bluebook."
-            : "Anannt Education coaches the May 2027 exam the way a careful teacher would: find the stuck idea, repair graph reading when height is treated as slope, and keep scored keys behind a second-person publish gate. A self-study supplement — not a predicted score and not an official practice exam."}
+            ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent an AP score from a Unit 1 slice."
+            : "Two graph-reading lessons, free, no account. Repair paths stay public. After lesson 2 we ask for email and a parent WhatsApp. This is not a complete course."}
         </p>
       </header>
 
@@ -99,14 +99,17 @@ export default function HomePage() {
         </Card>
       </section>
       {!named ? (
-        <p className="text-sm text-muted-foreground">
-          New here? Read{" "}
-          <Link href="/about" className="underline underline-offset-2">
-            how Anannt Education coaches this exam
-          </Link>
-          , then set up a plan. Demo students Maya, Arjun, and Priya are in the header if you want to
-          see a repair, a challenge route, or a solution-exposed check.
-        </p>
+        <div className="flex flex-wrap gap-3">
+          <Button nativeButton={false} render={<Link href="/lesson/lesson-motion-graphs" />}>
+            Start lesson 1 — free, no account <ArrowRight />
+          </Button>
+          <Button variant="outline" nativeButton={false} render={<Link href="/lesson/lesson-zero-v-a" />}>
+            Lesson 2: turning point
+          </Button>
+          <Button variant="ghost" nativeButton={false} render={<Link href="/diagnostic" />}>
+            Diagnostic start
+          </Button>
+        </div>
       ) : null}
 
       <div className="grid gap-4 md:grid-cols-3">
