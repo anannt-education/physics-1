@@ -31,12 +31,12 @@ export default function HomePage() {
         <h1 className="mt-1 font-heading text-3xl tracking-tight sm:text-4xl">
           {named
             ? `${state.profile!.displayName}, here is today’s study — and why this is next.`
-            : "Two Unit 1 graph-reading lessons. Units 2–8 are unpublished."}
+            : "Graph-reading first. Units 2–8 stay unpublished."}
         </h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {named
             ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent a score from a Unit 1 slice."
-            : "Open motion graphs, then the turning-point idea. No account. After lesson 2 we send you to study.anannt.ae/start. Two public lessons; a third waits behind that short form. Units 2–8 stay unpublished."}
+            : "Open motion graphs, then the turning-point idea. No account to begin. Units 2–8 stay unpublished."}
         </p>
       </header>
 
@@ -45,12 +45,12 @@ export default function HomePage() {
           {PUBLIC_LESSONS.map((lesson, i) => (
             <Card key={lesson.id} className="border-primary/20">
               <CardHeader>
-                <CardDescription>Public lesson {i + 1} · Unit 1</CardDescription>
+                <CardDescription>Lesson {i + 1} · Unit 1</CardDescription>
                 <CardTitle>{lesson.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Button nativeButton={false} render={<Link href={lesson.path} />}>
-                  {i === 0 ? "Start lesson 1 — free, no account" : "Open lesson 2"} <ArrowRight />
+                  {i === 0 ? "Start here" : "Open lesson 2"} <ArrowRight />
                 </Button>
               </CardContent>
             </Card>
@@ -70,7 +70,7 @@ export default function HomePage() {
                 <p className="text-sm text-muted-foreground">{lesson.blurb}</p>
                 <p className="text-sm text-muted-foreground">{GATED_HONESTY}</p>
                 <Button nativeButton={false} variant="outline" render={<Link href={lesson.path} />}>
-                  Continue after a short form <ArrowRight />
+                  Open this sitting <ArrowRight />
                 </Button>
               </CardContent>
             </Card>
@@ -196,17 +196,17 @@ export default function HomePage() {
           </CardHeader>
           <CardContent className="text-sm">
             <p>
-              Finish the Unit 1 motion-representation slice: diagnostic, two public lessons, and —
-              after a short form — the flattening-graph companion. Units 2–8 stay unpublished.
+              Finish the Unit 1 motion-representation slice: diagnostic, motion graphs, then the
+              turning-point idea. Units 2–8 stay unpublished.
             </p>
             <p className="mt-2 text-muted-foreground">
               Full mocks stay gated. Units 2–8 are unpublished —{" "}
               <a className="underline underline-offset-2" href={waitlistHref("u2")}>
                 ask to be told when a later unit is ready
               </a>
-              . After two lessons,{" "}
+              . After a couple of sittings,{" "}
               <a className="underline underline-offset-2" href={gateHref("u1")}>
-                continue on study.anannt.ae/start
+                tell us who is sitting this desk
               </a>
               .
             </p>

@@ -8,9 +8,9 @@ export const SITE_NAME = "Anannt Education";
 export const SITE_PRODUCT = "AP Physics 1";
 export const SITE_EXAM = "May 2027";
 
-export const DEFAULT_TITLE = "Physics 1 Unit 1 — two graph-reading lessons";
+export const DEFAULT_TITLE = "Physics 1 Unit 1 — start with motion graphs";
 export const DEFAULT_DESCRIPTION =
-  "Unit 1 motion is open: two graph-reading lessons, no account. Units 2–8 stay unpublished. Self-study for the May 2027 Physics 1 exam taught from Dubai.";
+  "Unit 1 motion is open: start with graph-reading. Units 2–8 stay unpublished. Self-study for the May 2027 Physics 1 exam taught from Dubai.";
 
 export function canonicalPath(path: string) {
   if (!path || path === "/") return "/";
@@ -205,7 +205,7 @@ export function courseJsonLd() {
     "@type": "Course",
     name: "AP Physics 1 exam preparation",
     description:
-      "Guided Physics 1 preparation for the May 2027 exam. Two public Unit 1 motion and graph-reading lessons; units 2–8 unpublished. A self-study supplement, not a complete commercial course.",
+      "Guided Physics 1 preparation for the May 2027 exam. Start with Unit 1 motion graphs. Units 2–8 unpublished. A self-study supplement, not a complete commercial course.",
     url: SITE_URL,
     provider: {
       "@type": "EducationalOrganization",

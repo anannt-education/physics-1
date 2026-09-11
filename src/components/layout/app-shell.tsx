@@ -184,7 +184,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               Later units
             </a>
             <a href={gateHref("u1")} className="underline-offset-2 hover:underline">
-              After two lessons
+              Tell us who is sitting
             </a>
           </nav>
         </div>

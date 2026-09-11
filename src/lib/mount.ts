@@ -38,7 +38,7 @@ export const GATED_LESSON_META = [
     id: LESSON_3.id,
     path: LESSON_3.path,
     unit: LESSON_3.unit,
-    kicker: "Lesson 3 · after a short form",
+    kicker: "Later sitting",
     title: LESSON_3.title,
     blurb:
       "A curve that gets flatter while still rising is motion in +x that is slowing down — not a hill, and not a photograph of the track. Unit 1 companion. Units 2–8 stay unpublished.",
@@ -46,7 +46,7 @@ export const GATED_LESSON_META = [
 ] as const;
 
 export const GATED_HONESTY =
-  "Two public lessons. A third waits behind a short form. Units 2–8 stay unpublished.";
+  "Units 2–8 stay unpublished. This is a Unit 1 motion slice.";
 
 export function isGatedLesson3(lessonId: string) {
   return lessonId === LESSON_3.id;
