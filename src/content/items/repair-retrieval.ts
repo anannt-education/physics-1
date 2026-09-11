@@ -193,6 +193,40 @@ export const RETRIEVAL_ITEMS: Item[] = [
     exposurePool: "retrieval",
     accessibilityDescription: "Delayed written retrieval of the slope rule.",
   }),
+  item({
+    id: "ret-flatten",
+    unitId: "u1",
+    topicId: "u1-graphs",
+    objectiveId: "1.K.3",
+    primaryConceptId: "c-flattening-xt",
+    secondaryConceptIds: ["c-xt-velocity"],
+    sciencePractice: "conceptual",
+    type: "explanation",
+    difficulty: "standard",
+    familyId: "fam-flatten-xt",
+    expectedTimeSec: 90,
+    prompt:
+      "A walker on a straight pavement has an x-t graph that still rises and gets flatter. In one or two sentences, what is the walker doing, and what must you refuse to say?",
+    explanationRubric: [
+      {
+        id: "r1",
+        points: 1,
+        criterion: "Still moving in +x and slowing down / |v| decreasing.",
+        evidenceHint: "slowing / smaller slope",
+      },
+      {
+        id: "r2",
+        points: 1,
+        criterion: "Refuses the hill/photograph reading.",
+        evidenceHint: "not a hill / not a picture",
+      },
+    ],
+    solution: "Still walking forward and slowing down. The graph is not a picture of a hill.",
+    hints: ["Slope is velocity.", "Shallower while rising is slowing, not reversing.", "Not a photograph."],
+    misconceptionTags: ["mc-graph-as-path"],
+    exposurePool: "retrieval",
+    accessibilityDescription: "Delayed retrieval of flattening x-t reading.",
+  }),
 ];
 
 export const CMS_DRAFT_ITEMS: Item[] = [

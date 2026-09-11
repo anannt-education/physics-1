@@ -12,7 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import { MENTOR } from "@/content/mentor";
 import { ArrowRight, Clock, Flag, ListChecks } from "lucide-react";
-import { PUBLIC_LESSONS, gateHref, waitlistHref } from "@/lib/mount";
+import { GATED_HONESTY, GATED_LESSON_META, PUBLIC_LESSONS, gateHref, waitlistHref } from "@/lib/mount";
 
 export default function HomePage() {
   const { state, now } = useStudent();
@@ -36,7 +36,7 @@ export default function HomePage() {
         <p className="mt-2 max-w-2xl text-muted-foreground">
           {named
             ? "One primary action, an honest reason, and the evidence behind it. Your mentor will not invent a score from a Unit 1 slice."
-            : "Open motion graphs, then the turning-point idea. No account. After lesson 2 we send you to study.anannt.ae/start. Later units wait for faculty review — they are not a hidden course."}
+            : "Open motion graphs, then the turning-point idea. No account. After lesson 2 we send you to study.anannt.ae/start. Two public lessons; a third waits behind that short form. Units 2–8 stay unpublished."}
         </p>
       </header>
 
@@ -51,6 +51,26 @@ export default function HomePage() {
               <CardContent>
                 <Button nativeButton={false} render={<Link href={lesson.path} />}>
                   {i === 0 ? "Start lesson 1 — free, no account" : "Open lesson 2"} <ArrowRight />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : null}
+
+      {!named ? (
+        <div className="space-y-3" aria-label="Lessons behind the study form">
+          {GATED_LESSON_META.map((lesson) => (
+            <Card key={lesson.id} className="border-dashed">
+              <CardHeader>
+                <CardDescription>{lesson.kicker} · Unit 1</CardDescription>
+                <CardTitle>{lesson.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-muted-foreground">{lesson.blurb}</p>
+                <p className="text-sm text-muted-foreground">{GATED_HONESTY}</p>
+                <Button nativeButton={false} variant="outline" render={<Link href={lesson.path} />}>
+                  Continue after a short form <ArrowRight />
                 </Button>
               </CardContent>
             </Card>
@@ -176,8 +196,8 @@ export default function HomePage() {
           </CardHeader>
           <CardContent className="text-sm">
             <p>
-              Finish the Unit 1 motion-representation slice: diagnostic, two lessons, practice, and
-              one handwritten explanation of a flattening graph.
+              Finish the Unit 1 motion-representation slice: diagnostic, two public lessons, and —
+              after a short form — the flattening-graph companion. Units 2–8 stay unpublished.
             </p>
             <p className="mt-2 text-muted-foreground">
               Full mocks stay gated. Units 2–8 are unpublished —{" "}

@@ -154,6 +154,17 @@ export const CONCEPTS: Concept[] = [
     prerequisites: ["c-xt-velocity"],
     misconceptions: ["mc-stop-means-a-zero"],
   },
+  {
+    id: "c-flattening-xt",
+    name: "Flattening x-t graphs as decreasing speed",
+    outcome:
+      "Read a curve that gets flatter while still rising as slowing down in +x, not as a photograph of a hill.",
+    unitId: "u1",
+    topicId: "u1-graphs",
+    objectiveId: "1.K.3",
+    prerequisites: ["c-xt-velocity"],
+    misconceptions: ["mc-graph-as-path"],
+  },
 ];
 
 export const MISCONCEPTIONS: Misconception[] = [
@@ -173,6 +184,16 @@ export const MISCONCEPTIONS: Misconception[] = [
     scientificIdea:
       "Acceleration is the rate of change of velocity. At a turning point velocity can be zero while acceleration remains nonzero.",
     repairPathId: "repair-turning-point",
+    critical: true,
+  },
+  {
+    id: "mc-graph-as-path",
+    name: "Graph treated as a photograph of the path",
+    studentIdea:
+      "A flattening x-t curve looks like a hill, so the object must be going over a hill or rolling downhill.",
+    scientificIdea:
+      "An x-t graph is not a map of the track. Slope is velocity. A curve that gets flatter while still rising is slowing down in the positive direction.",
+    repairPathId: "repair-graph-slope",
     critical: true,
   },
 ];

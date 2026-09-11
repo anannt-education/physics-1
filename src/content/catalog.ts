@@ -46,4 +46,5 @@ export const RETRIEVAL_ITEM_IDS = {
   "c-xt-velocity": "ret-xt-slope",
   "c-zero-v-nonzero-a": "ret-turning",
   "c-slope-as-rate": "ret-explain",
+  "c-flattening-xt": "ret-flatten",
 } as const;
