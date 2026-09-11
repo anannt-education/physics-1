@@ -25,6 +25,33 @@ export const PUBLIC_LESSONS = [
 export const PUBLIC_LESSON_IDS: ReadonlySet<string> = new Set(PUBLIC_LESSONS.map((l) => l.id));
 export const LESSON_2 = PUBLIC_LESSONS[1];
 
+/** Wave E gated lesson 3. Unit 1 graph-repair companion. Not Units 2–8. Not a third public tile. */
+export const LESSON_3 = {
+  id: "lesson-flattening-xt",
+  path: "/lesson/lesson-flattening-xt",
+  unit: "u1",
+  title: "A flattening x-t graph is slowing down",
+} as const;
+
+export const GATED_LESSON_META = [
+  {
+    id: LESSON_3.id,
+    path: LESSON_3.path,
+    unit: LESSON_3.unit,
+    kicker: "Lesson 3 · after a short form",
+    title: LESSON_3.title,
+    blurb:
+      "A curve that gets flatter while still rising is motion in +x that is slowing down — not a hill, and not a photograph of the track. Unit 1 companion. Units 2–8 stay unpublished.",
+  },
+] as const;
+
+export const GATED_HONESTY =
+  "Two public lessons. A third waits behind a short form. Units 2–8 stay unpublished.";
+
+export function isGatedLesson3(lessonId: string) {
+  return lessonId === LESSON_3.id;
+}
+
 export function absUrl(path = "/") {
   const p = !path || path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}${p}`;
@@ -73,10 +100,12 @@ export const ROBOTS_DISALLOW = [
   `${BASE_PATH}/keys`,
   `${BASE_PATH}/practice`,
   `${BASE_PATH}/frq`,
+  `${BASE_PATH}${LESSON_3.path}`,
   "/mock",
   "/mocks",
   "/api",
   "/keys",
+  LESSON_3.path,
 ];
 
 export const GATED_PREFIXES = [

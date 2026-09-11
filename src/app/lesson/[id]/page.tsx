@@ -14,7 +14,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { MENTOR } from "@/content/mentor";
 import { MentorNote } from "@/components/mentor/mentor-note";
 import type { Attempt } from "@/lib/types";
-import { isLesson2, PUBLIC_LESSONS } from "@/lib/mount";
+import { GATED_HONESTY, isGatedLesson3, isLesson2, PUBLIC_LESSONS } from "@/lib/mount";
 import { redirectToGate } from "@/lib/gate-client";
 
 export default function LessonPage({ params }: { params: Promise<{ id: string }> }) {
@@ -72,6 +72,10 @@ export default function LessonPage({ params }: { params: Promise<{ id: string }>
       completeLesson(id, lesson!.conceptIds, retrievalId);
       if (isLesson2(id)) {
         redirectToGate(PUBLIC_LESSONS[1].unit);
+        return;
+      }
+      if (isGatedLesson3(id)) {
+        router.push("/");
         return;
       }
       router.push(PUBLIC_LESSONS[1].path);

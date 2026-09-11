@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
-import { PUBLIC_LESSON_IDS, waitlistHref } from "@/lib/mount";
+import { GATED_HONESTY, isGatedLesson3, PUBLIC_LESSON_IDS, waitlistHref } from "@/lib/mount";
 
 export default function CoursePage() {
   const { state } = useStudent();
@@ -26,8 +26,7 @@ export default function CoursePage() {
         <h1 className="font-heading text-3xl">AP Physics 1 course map</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Your mentor will not pretend Units 2–8 are built. Official unit names and MCQ weighting
-          ranges come from the College Board course page. Unit 1 has two public graph-reading
-          lessons. Units 2–8 are unpublished — ask to be told when lesson 1 of a later unit is ready.
+          ranges come from the College Board course page. {GATED_HONESTY}
         </p>
       </div>
       <div className="grid gap-4">
@@ -78,6 +77,10 @@ export default function CoursePage() {
                   PUBLIC_LESSON_IDS.has(l.id) ? (
                     <Button key={l.id} variant="outline" size="sm" nativeButton={false} render={<Link href={`/lesson/${l.id}`} />}>
                       {state.lessonProgress[l.id]?.status === "completed" ? "Review" : "Open"} {l.title}
+                    </Button>
+                  ) : isGatedLesson3(l.id) ? (
+                    <Button key={l.id} variant="outline" size="sm" nativeButton={false} render={<Link href={`/lesson/${l.id}`} />}>
+                      After a short form · {l.title}
                     </Button>
                   ) : null
                 )}
